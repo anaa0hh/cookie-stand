@@ -5,7 +5,11 @@
 
 th {
     background-color: bisque;
-    border: 2px;
-    border-color:black;
-    padding: 0px, 4px, 0px, 4px;
+    padding: 5px;
+}
+
+tr {
+    background-color: lavender;
+    padding: 5px;
+
 }
