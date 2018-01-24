@@ -1,0 +1,11 @@
+*{
+    background-color:salmon;
+}
+
+
+th {
+    background-color: bisque;
+    border: 2px;
+    border-color:black;
+    padding: 0px, 4px, 0px, 4px;
+}
