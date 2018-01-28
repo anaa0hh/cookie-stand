@@ -72,3 +72,4 @@ function makeStands() {
 }
 console.log(allLocations);
 makeStands();
+
