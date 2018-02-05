@@ -1,0 +1,17 @@
+body {
+    justify-content: center;
+    background-color: bisque;
+}
+
+tbody {
+    background-color: salmon;
+}
+
+tfoot {
+    background-color: salmon;
+
+}
+
+thead {
+    background-color: salmon;
+}
