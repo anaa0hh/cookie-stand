@@ -1,7 +1,7 @@
 'use strict';
 var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
 var storeContainer = [];
-
+var netTotal = [];
 
 ////////////////////////////////// constructor function /////////////////////////////////
 function MakeLocation(name, minCustomer, maxCustomer, averageSales) {
@@ -16,7 +16,7 @@ function MakeLocation(name, minCustomer, maxCustomer, averageSales) {
   this.customersPerHour();
   this.salesByHour();
   storeContainer.push(this);
-  console.log(storeContainer);
+  // console.log(storeContainer);
 }
 
 MakeLocation.prototype.customersPerHour = function() {
@@ -81,32 +81,38 @@ createHeader();
 
 
 /////////////////////////////// this is building the body ////////////////////////////////
+// const bodyMax = 0;
+function createBody() {
+  var table = document.getElementById('shell');
+  var data = [];
 
-var table = document.getElementById('shell');
-var data = [];
+  for (var j = 0; j < locations.length; j++) { // current row
+    var dataList = '<td>' + locations[j].name + '</td>';
+    for (var n = 0; n < 15; n++) { // current cell
 
-for (var j = 0; j < locations.length; j++) {
-  var dataList = '<td>' + locations[j].name + '</td>';
-  for (var n = 0; n < 15; n++) {
-    dataList = dataList + '<td>' + locations[j].hourlySales[n] + '</td>';
+      dataList = dataList + '<td>' + locations[j].hourlySales[n] + '</td>';
+    }
+    // dataLis
+    data.push(dataList);
   }
-  data.push(dataList);
+
+  //placing all the data collected in the data array into the DOM
+  var newRow;
+
+  for (var k = 0; k < data.length; k++) { //had to change coutner name to k
+    newRow = document.createElement('tr');
+    newRow.innerHTML = data[k];
+    table.appendChild(newRow);
+  }
 }
-
-//placing all the data collected in the data array into the DOM
-var newRow;
-
-for (var k = 0; k < data.length; k++) { //had to change coutner name to k
-  newRow = document.createElement('tr');
-  newRow.innerHTML = data[k];
-  table.appendChild(newRow);
-}
-
+createBody();
 //////////////////////////// end of building the body ///////////////////////////////
 
 
 
 //////////////////////footer starts here ///////////////////////////////
+
+// var grandTotal =[];
 
 function createFooter() {
   var tfoot = document.getElementById('tfoot');
@@ -118,29 +124,43 @@ function createFooter() {
   thEl.innerHTML=('Total Per Hour');
   anything.appendChild(thEl);
 
+  let footerMax=0;
 
-  for(var i = 0; i < hours.length; i++){
-    let columnTotal=0;
+  for(var i = 0; i < hours.length; i++){ // current column
+    let columnTotal=0; // when starting a new column, reset total
 
-    for(var j = 0; j < storeContainer.length; j++){
+    for(var j = 0; j < storeContainer.length; j++){ // current cell
       let currentStore = storeContainer[j];
       columnTotal += currentStore.hourlySales[i];
-      console.log(currentStore.hourlySales[i]);
+      // console.log(currentStore.hourlySales[i]);
     }
-    var div = document.createElement('td');
-    div.textContent=(columnTotal);
-    row.appendChild(div);
+    var div = document.createElement('td'); // create element to put total in
+    div.textContent=(columnTotal); // store column total in html
+    row.appendChild(div); // place html with column total
+    footerMax+=columnTotal;
   }
+  var totalCell = document.createElement('td'); // create element to put totalCell in
+  totalCell.textContent=(footerMax); // store totalCell in html
+  row.appendChild(totalCell); // placing html element that has  totalCell
 }
-
 createFooter();
 
-// function createFooter() {
-//   var tfoot = document.getElementById('tfoot');
-//   var footValues = ['<td>' + 'Totals' + '</td>'];// whats this doing
 
+// var grandTotal = [];
+// for (var b = 0; b < locations.length; b++) {
+//   grandTotal = 0;
+//   for (var x = 0; x < 15; x++) {
+//     grandTotal.push(locations[b].hourlySales[x] + grandTotal);
+//   }
+// }
+// //assembling the grand total for the table
+// var grandDataList = [];
+// for (var y = 0; y < this.footerRow.length; y++) {
+//   grandDataList = grandDataList + '<td>' + grandTotal[y] + '</td>';
+// }
+// this.hours.push(grandTotal);
 
-//   // var grandTotal = [];
+// console.log(grandDataList);
 
 
 
@@ -149,6 +169,3 @@ createFooter();
 //the inner for loop is going to iterate through a different global array. for this to work we need a global variable declared at the top of the program that holds that array of objects created by the constructor function.
 //////in this for loop we want to declare a new variable (with let, i dont know why)
 
-// createFooter();
-
-//start by creating tab
