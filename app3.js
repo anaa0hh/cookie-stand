@@ -144,6 +144,41 @@ function createFooter() {
   row.appendChild(totalCell); // placing html element that has  totalCell
 }
 createFooter();
+////////////////////////////////////////////////////////////
+
+var storeForm = document.getElementById('store-form');
+storeForm.addEventListener("submit", handleStoreAdd);
+
+function handleStoreAdd(event) {
+  event.preventDefault(); //gotta have it to prevent page reload on a submit event
+
+  console.log('works')
+  console.log(event);
+  // //telling the user to fill in the form properly. So if the form is empty somewhere they get the alert//
+  // if(!event.target.storename.value || !event.target.mincust.value || !event.target.maxcust.value || !event.target.avgcook.value) {
+  //   return alert('Do you want the data or not!? Enter something.');
+  // }
+  //////////////////////////////////////////////////////////
+  
+  //target the name in the form
+  // var newStoreName = event.target.storename.value;
+  // var newStoreMinCust = parseInt(event.target.mincust.value);
+  // var newStoreMaxCust = parseInt(event.target.maxcust.value);
+  // var newStoreAvgCook = parseInt(event.target.avgcook.value);
+
+  // console.log(newStoreName , newStoreMinCust, newStoreMaxCust, newStoreAvgCook);
+
+  // new MakeLocation(newStoreName, newStoreMinCust, newStoreMaxCust, newStoreAvgCook);
+
+
+
+  // event.target.storename.value = null;
+  // event.target.mincust.value = null;
+  // event.target.maxcust.value = null;
+  // event.target.avgcook.value = null;
+
+}
+
 
 
 // var grandTotal = [];
