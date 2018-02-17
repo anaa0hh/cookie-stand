@@ -116,6 +116,7 @@ createBody();
 
 function createFooter() {
   var tfoot = document.getElementById('tfoot');
+  tfoot.innerHTML = '';
   var row = document.createElement('tr');
   row.setAttribute('id', 'footerRow');
   tfoot.appendChild(row);
@@ -142,8 +143,64 @@ function createFooter() {
   var totalCell = document.createElement('td'); // create element to put totalCell in
   totalCell.textContent=(footerMax); // store totalCell in html
   row.appendChild(totalCell); // placing html element that has  totalCell
+
+
+
+  // // replace old footer not append
+  // var tfoot = document.getElementById('tfoot');
 }
 createFooter();
+////////////////////////////////////////////////////////////
+
+var storeForm = document.getElementById('store-form');
+storeForm.addEventListener("submit", handleStoreAdd);
+
+function handleStoreAdd(event) {
+  event.preventDefault(); //gotta have it to prevent page reload on a submit event
+  var newStoreName = event.target.storename.value;
+  var newMinCust = event.target.mincust.value;
+  var newMaxCust = event.target.maxcust.value;
+  var newAvgCook = event.target.avgcook.value;
+
+  //telling the user to fill in the form properly. So if the form is empty somewhere they get the alert//
+  if(!newStoreName|| !newMinCust || !newMaxCust || !newAvgCook) {
+    return alert('Do you want the data or not!? Enter something.');
+  }
+
+  var newLocation = new MakeLocation (newStoreName, newMinCust, newMaxCust, newAvgCook);
+
+  var table = document.getElementById('shell');
+  var row = '<td>' + newLocation.name + '</td>';
+  for (var n = 0; n < 15; n++) { // current cell
+    row = row + '<td>' + newLocation.hourlySales[n] + '</td>';
+  }
+
+  var newRow = document.createElement('tr');
+  newRow.innerHTML = row;
+  table.appendChild(newRow);
+  // dataLis
+  console.log(storeContainer);
+  createFooter();
+
+  //////////////////////////////////////////////////////////
+  
+  //target the name in the form
+  // var newStoreName = event.target.storename.value;
+  // var newStoreMinCust = parseInt(event.target.mincust.value);
+  // var newStoreMaxCust = parseInt(event.target.maxcust.value);
+  // var newStoreAvgCook = parseInt(event.target.avgcook.value);
+
+  // console.log(newStoreName , newStoreMinCust, newStoreMaxCust, newStoreAvgCook);
+
+  // new MakeLocation(newStoreName, newStoreMinCust, newStoreMaxCust, newStoreAvgCook);
+// 
+  // event.target.storename.value = null;
+  // event.target.mincust.value = null;
+  // event.target.maxcust.value = null;
+  // event.target.avgcook.value = null;
+
+}
+
 
 
 // var grandTotal = [];
